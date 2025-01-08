@@ -86,8 +86,12 @@
 #define EVENT_GA_L 57 // left
 #define EVENT_GA_R 58 // right  
 
+#define EVENT_JS_M 59
+#define EVENT_JS_MSF 60
+#define EVENT_JS_MXD 61
+#define EVENT_JS_MYD 62
 
-#define EVENTS_COUNT 59 // number of events
+#define EVENTS_COUNT 63 // number of events
 #define EVENT_EMPTY 99 // empty event
 
 

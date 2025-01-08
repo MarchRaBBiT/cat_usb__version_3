@@ -28,6 +28,10 @@ public:
     int8_t gyro_mouse_x_direction[4];
     int8_t gyro_mouse_y_direction[4];
 
+    int8_t joystick_mode[4];
+    uint8_t joystick_mouse_speed[4];
+    int8_t joystick_x_direction[4];
+    int8_t joystick_y_direction[4];
 
     void split_events_package(String events_package);
 

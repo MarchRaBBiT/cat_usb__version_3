@@ -91,6 +91,25 @@ void Layouts_Manager::convert_to_numbers()
         else{
             gyro_mouse_y_direction[m] = 1;
         }
+        if (events_bank[m][EVENT_JS_M][0] == '0') {
+            joystick_mode[m] = 0;
+        }
+        else{
+            joystick_mode[m] = 1;
+        }
+        joystick_mouse_speed[m] = atoi(events_bank[m][EVENT_JS_MSF].c_str());
+        if (events_bank[m][EVENT_JS_MXD][0] == '0'){
+            joystick_x_direction[m] = -1;
+        } 
+        else{
+            joystick_x_direction[m] = 1;
+        }
+        if (events_bank[m][EVENT_JS_MYD][0] == '0'){
+            joystick_y_direction[m] = -1;
+        } 
+        else{
+            joystick_y_direction[m] = 1;
+        }
     }
 }
 
