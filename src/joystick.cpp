@@ -18,9 +18,12 @@ void Joystick::initialize(){
 
   
 
-
 void Joystick::read_joystick(){
+    (this->*_read_joystick[layouts_manager.joystick_mode[layer_control.active_layer]])()
+}
 
+
+void Joystick::read_joystick_key(){
     // read the analog joystick values
     joystickValues[0] = analogRead(PIN_THUMB_MOD_JOYSTICK_Y); 
     joystickValues[1] = analogRead(PIN_THUMB_MOD_JOYSTICK_X);
@@ -34,6 +37,24 @@ void Joystick::read_joystick(){
     }
 }
 
+
+void Joystick::read_joystick_mouse(){
+    int x, y;
+    y = analogRead(PIN_THUMB_MOD_JOYSTICK_Y); 
+    x = analogRead(PIN_THUMB_MOD_JOYSTICK_X);
+    // XXX: missmatch 
+    // analogRead: read analog value in [0, 4095]
+    // Mouse.move: send value in [-128, 127]
+
+    Mouse.move(x, y)
+}
+
+
+// TODO: calibrate min_x, min_y, max_x, max_y
+void Joystick::convert_to_mouse_move(int x, int y, char *mouse_x, char *mouse_y) {
+    *mouse_x = (char)((x << 4) - 128);
+    *mouse_y = (char)((y << 4) - 128);
+}
 
 
 void Joystick::one_step() {
