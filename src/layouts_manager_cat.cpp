@@ -98,6 +98,12 @@ void Layouts_Manager::convert_to_numbers()
             joystick_mode[m] = 1;
         }
         joystick_mouse_speed[m] = atoi(events_bank[m][EVENT_JS_MSF].c_str());
+        if (joystick_mouse_speed[m] < 0){
+            joystick_mouse_speed[m] = 0;
+        }
+        if (joystick_mouse_speed[m] > 7){
+            joystick_mouse_speed[m] = 7;
+        }
         if (events_bank[m][EVENT_JS_MXD][0] == '0'){
             joystick_x_direction[m] = -1;
         } 
