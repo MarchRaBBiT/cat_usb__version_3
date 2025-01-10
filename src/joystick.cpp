@@ -40,20 +40,25 @@ void Joystick::read_joystick_key(){
 
 void Joystick::read_joystick_mouse(){
     int x, y;
+    unsigned char mouse_x, mouse_y;
     y = analogRead(PIN_THUMB_MOD_JOYSTICK_Y); 
     x = analogRead(PIN_THUMB_MOD_JOYSTICK_X);
     // XXX: missmatch 
     // analogRead: read analog value in [0, 4095]
     // Mouse.move: send value in [-128, 127]
+    convert_to_mouse_move(x, y, &mouse_x, &mouse_y);
 
-    Mouse.move(x, y)
+    Mouse.move(mouse_x, mouse_y)
 }
 
 
 // TODO: calibrate min_x, min_y, max_x, max_y
-void Joystick::convert_to_mouse_move(int x, int y, char *mouse_x, char *mouse_y) {
-    *mouse_x = (char)((x << 4) - 128);
-    *mouse_y = (char)((y << 4) - 128);
+void Joystick::convert_to_mouse_move(int x, int y, signed char *mouse_x, signed char *mouse_y) {
+    int x_index, y_index;
+    x_index = x << 8;
+    y_index = y << 8;
+    *mouse_x = (signed char)(joystick_mouse_speeds[layouts_manager.joystick_mouse_speed[layer_control.active_layer]][x_index] * layouts_manager.joystick_x_direction[layer_control.active_layer]);
+    *mouse_y = (signed char)(joystick_mouse_speeds[layouts_manager.joystick_mouse_speed[layer_control.active_layer]][y_index] * layouts_manager.joystick_y_direction[layer_control.active_layer]);
 }
 
 
